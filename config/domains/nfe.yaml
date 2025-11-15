@@ -1,0 +1,127 @@
+# NF-e (Brazilian Electronic Invoice) specific configuration
+domain: "nfe"
+description: "Brazilian NFe schema converter"
+
+# Default settings
+defaults:
+  string_size: 255
+  numeric_precision: 15
+  numeric_scale: 2
+
+# Pattern-based type mappings - CORRIGIDO: usando single quotes e regex válidos
+pattern_mappings:
+  - pattern: '[0-9]{4}'
+    sql_type: "CHAR(4)"
+  - pattern: '[0-9]{6}'
+    sql_type: "CHAR(6)"
+  - pattern: '[0-9]{8}'
+    sql_type: "VARCHAR(8)"
+  - pattern: '[0-9]{11}'
+    sql_type: "CHAR(11)"
+  - pattern: '[0-9]{14}'
+    sql_type: "CHAR(14)"
+
+# Complex type prefixes that should be treated as root elements
+root_complex_type_prefixes: ["T"]
+
+# XML Schema namespace
+xsd_namespace: "http://www.w3.org/2001/XMLSchema"
+
+# NF-e specific type mappings
+custom_types:
+  # String types
+  TString: "VARCHAR(255)"
+  TGuid: "UUID"
+  
+  # Numeric types
+  TCodUfIBGE: "CHAR(2)"
+  TCodMunIBGE: "CHAR(7)"
+  TCnpj: "CHAR(14)"
+  TCpf: "CHAR(11)"
+  TNF: "INTEGER"
+  TSerie: "SMALLINT"
+  TProt: "CHAR(15)"
+  TRec: "CHAR(15)"
+  TStat: "CHAR(3)"
+  
+  # Decimal types
+  TDec_1302: "NUMERIC(15,2)"
+  TDec_1302Opc: "NUMERIC(15,2)"
+  TDec_0302a04: "NUMERIC(5,4)"
+  TDec_0302a04Opc: "NUMERIC(5,4)"
+  TDec_0302Max100: "NUMERIC(5,2)"
+  TDec_0803v: "NUMERIC(11,3)"
+  TDec_1104: "NUMERIC(15,4)"
+  TDec_1110v: "NUMERIC(21,10)"
+  TDec_1203: "NUMERIC(15,3)"
+  TDec_1204: "NUMERIC(16,4)"
+  
+  # Date/Time types
+  TData: "DATE"
+  TDateTimeUTC: "TIMESTAMP"
+  TTime: "TIME"
+  
+  # Special types
+  TChNFe: "CHAR(44)"
+  TIe: "VARCHAR(14)"
+  TIeDest: "VARCHAR(14)"
+  TIeST: "VARCHAR(14)"
+  TMod: "CHAR(2)"
+  TPlaca: "VARCHAR(7)"
+  TUf: "CHAR(2)"
+  TUfEmi: "CHAR(2)"
+  TAmb: "CHAR(1)"
+
+# Essential fields for NF-e tables
+essential_fields:
+  emit:
+    - name: "CNPJ"
+      type: "CHAR(14)"
+      required: false
+    - name: "CPF"
+      type: "CHAR(11)"
+      required: false
+  dest:
+    - name: "CNPJ"
+      type: "CHAR(14)"
+      required: false
+    - name: "CPF"
+      type: "CHAR(11)"
+      required: false
+    - name: "idEstrangeiro"
+      type: "VARCHAR(20)"
+      required: false
+  autXML:
+    - name: "CNPJ"
+      type: "CHAR(14)"
+      required: false
+    - name: "CPF"
+      type: "CHAR(11)"
+      required: false
+  transporta:
+    - name: "CNPJ"
+      type: "CHAR(14)"
+      required: false
+    - name: "CPF"
+      type: "CHAR(11)"
+      required: false
+
+# Field-specific overrides
+field_overrides:
+  CFOP: "CHAR(4)"
+  NCM: "VARCHAR(8)"
+  cEAN: "VARCHAR(14)"
+  cEANTrib: "VARCHAR(14)"
+  idEstrangeiro: "VARCHAR(20)"
+
+# NF-e specific namespace detection
+namespace_indicators:
+  - "http://www.portalfiscal.inf.br/nfe"
+  - "http://www.portalfiscal.inf.br"
+
+# Root element indicators
+root_element_indicators:
+  - "TNFe"
+  - "TEnviNFe"
+  - "TProtNFe"
+  - "TConsReciNFe"

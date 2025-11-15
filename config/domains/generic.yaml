@@ -1,0 +1,34 @@
+# Generic domain configuration for unknown XSD schemas
+domain: "generic"
+description: "Generic XML Schema to SQL converter"
+
+# Default settings
+defaults:
+  string_size: 255
+  numeric_precision: 15
+  numeric_scale: 2
+
+# Pattern-based type mappings
+pattern_mappings:
+  - pattern: "\[0-9\]\{4\}"
+    sql_type: "CHAR(4)"
+  - pattern: "\[0-9\]\{6\}"
+    sql_type: "CHAR(6)"
+  - pattern: "\[0-9\]\{8\}"
+    sql_type: "VARCHAR(8)"
+  - pattern: "\[0-9\]\{11\}"
+    sql_type: "CHAR(11)"
+  - pattern: "\[0-9\]\{14\}"
+    sql_type: "CHAR(14)"
+
+# Complex type prefixes that should be treated as root elements
+root_complex_type_prefixes: ["T", "Type"]
+
+# Essential fields to add to specific tables
+essential_fields: {}
+
+# Field type overrides
+field_overrides: {}
+
+# XML Schema namespace
+xsd_namespace: "http://www.w3.org/2001/XMLSchema"

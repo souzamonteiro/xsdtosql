@@ -1,0 +1,54 @@
+
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:element name="TNFe">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="infNFe">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="ide">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="cUF" type="TCodUfIBGE"/>
+                                            <xs:element name="cNF" type="xs:string"/>
+                                            <xs:element name="natOp" type="TString"/>
+                                            <xs:element name="mod" type="TMod"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="emit">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:choice>
+                                                <xs:element name="CNPJ" type="TCnpj"/>
+                                                <xs:element name="CPF" type="TCpf"/>
+                                            </xs:choice>
+                                            <xs:element name="xNome" type="TString"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element name="det" maxOccurs="990">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="prod">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="cProd" type="TString"/>
+                                                        <xs:element name="cEAN" type="xs:string"/>
+                                                        <xs:element name="xProd" type="TString"/>
+                                                        <xs:element name="NCM" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                        <xs:attribute name="nItem" type="xs:string" use="required"/>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </xs:schema>
+    
